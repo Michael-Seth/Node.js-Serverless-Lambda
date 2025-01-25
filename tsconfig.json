@@ -30,7 +30,6 @@
     ]
   },
   "include": [
-    "src/",
     "src/**/*.ts",
     "package.json",
     "package-lock.json",
