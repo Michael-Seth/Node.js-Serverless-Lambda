@@ -1,0 +1,43 @@
+{
+  "name": "node.js-server-boilerplate",
+  "version": "1.0.0",
+  "description": "This is a nodejs server boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --delay 500ms src/index.ts",
+    "clean": "rm -rf ./dist",
+    "copy": "sh ./scripts/copy.sh",
+    "build": "npm run clean && tsc && npm run copy",
+    "tsc": "tsc"
+  },
+  "keywords": [
+    "Nodejs",
+    "ExpressJs",
+    "Lambda",
+    "Serverless"
+  ],
+  "author": "Michael Osas",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "aws-serverless-express": "^3.4.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "http-status-codes": "^2.3.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.8",
+    "@types/nodemon": "^1.19.6",
+    "nodemon": "^3.1.4",
+    "reflect-metadata": "^0.2.2",
+    "serverless-offline": "^14.4.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.2"
+  }
+}

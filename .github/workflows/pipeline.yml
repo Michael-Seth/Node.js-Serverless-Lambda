@@ -1,0 +1,55 @@
+name: Deploy playground app
+
+on:
+  push:
+    branches: [dev]
+
+  workflow_dispatch:
+jobs:
+  deploy-auth:
+    name: Deploy playground app to dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+      - name: Install Serverless Framework
+        run: npm install -g serverless@4.5.0
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Create env for App
+
+        run: |
+          cat > .env << EOF
+          NODE_ENV=staging
+          ADMIN_MAIL=maxwell@nerdbug.io
+          DEBUG=*
+          LOG_LEVEL="info"
+          API_PREFIX=api-v1
+          DATABASE_HOST=${{ secrets.DATABASE_HOST }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}
+          EOF
+
+      - name: Install NPM dependencies on app
+        run: npm install --only=prod && npm install @types/aws-serverless-express
+        
+      - name: Install NPM dependencies on app for serverless http
+        run: npm install --only=prod && npm install serverless-http
+
+      - name: Build ts files
+        run: npm run build
+
+      - name: check src folder
+        run: cd dist/src && ls -la
+
+      - name: Deploy Lambda functions on app for aws-serverless-express
+        run: cd dist && serverless deploy --config serverless.yml --stage dev --region $AWS_DEFAULT_REGION
