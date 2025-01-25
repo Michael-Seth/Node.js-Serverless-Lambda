@@ -51,5 +51,8 @@ jobs:
       - name: check src folder
         run: cd dist/src && ls -la
 
+      - name: Authenticate Serverless Framework
+        run: serverless login --accessKey ${{ secrets.SERVERLESS_ACCESS_KEY }}
+
       - name: Deploy Lambda functions on app for aws-serverless-express
         run: cd dist && serverless deploy --config serverless.yml --stage dev --region $AWS_DEFAULT_REGION
