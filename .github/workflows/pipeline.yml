@@ -60,5 +60,8 @@ jobs:
       #     cd api
       #     serverless deploy --stage hml
 
-      - name: Deploy Lambda functions on app for aws-serverless-express
+      # - name: Deploy Lambda functions on app for aws-serverless-express
+      #   run: cd dist && serverless deploy --config serverless.yml --stage dev --region $AWS_DEFAULT_REGION
+
+      - name: Redeploy Lambda functions with serverless-http
         run: cd dist && serverless deploy --config serverless.yml --stage dev --region $AWS_DEFAULT_REGION
