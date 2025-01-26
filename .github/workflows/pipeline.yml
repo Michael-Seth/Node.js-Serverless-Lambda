@@ -51,14 +51,14 @@ jobs:
       - name: check src folder
         run: cd dist/src && ls -la
 
-      - name: Authenticate And Deploy Serverless Framework
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-        run: |
-          cd api
-          serverless deploy --stage hml
+      # - name: Authenticate And Deploy Serverless Framework
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+      #   run: |
+      #     cd api
+      #     serverless deploy --stage hml
 
       - name: Deploy Lambda functions on app for aws-serverless-express
         run: cd dist && serverless deploy --config serverless.yml --stage dev --region $AWS_DEFAULT_REGION
