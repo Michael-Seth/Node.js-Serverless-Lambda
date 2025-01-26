@@ -55,7 +55,6 @@ functions:
       - schedule:
           rate: cron(0/4 6-23 ? * * *)
 
-# Resources: You can also configure additional AWS resources (e.g., DynamoDB, S3)
 # resources:
 #   Outputs:
 #     ApiGatewayEndpoint:
