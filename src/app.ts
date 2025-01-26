@@ -1,4 +1,4 @@
-import "reflect-metadata";
+// import "reflect-metadata";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
